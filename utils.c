@@ -72,14 +72,17 @@ void	exec_pipe(char *av, char **env)
 	char	**cmd;
 	char	*path;
 
-	cmd = ft_split(av, ' ');
-	path = get_path(cmd[0], env);
-	if (path == NULL)
+	if (access(av, F_OK | X_OK) != 0)
 	{
-		free(cmd);
-		exit(0);
+		cmd = ft_split(av, ' ');
+		path = get_path(cmd[0], env);
+		if (path == NULL)
+		{
+			free(cmd);
+			exit(0);
+		}
+		path = ft_strjoin(path, cmd[0]);
 	}
-	path = ft_strjoin(path, cmd[0]);
 	if (execve(path, cmd, env) == -1)
 	{
 		free_arr(cmd);
