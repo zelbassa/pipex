@@ -62,5 +62,4 @@ int	main(int ac, char **av, char **env)
 	else if (id == 0)
 		child(av, env, fds);
 	parent(av, env, fds);
-	waitpid(id, NULL, 0);
 }
